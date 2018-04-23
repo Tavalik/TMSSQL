@@ -25,7 +25,8 @@
 
 Пример использования:
 
-`@echo off
+``` bat
+@echo off
 
 setlocal
 
@@ -89,5 +90,7 @@ call %file% shrinkdatabase %connectionstring%
 rem Удаление базы данных
 echo ----------------------------------------------
 echo dropdatabase:
-call %file% dropdatabase %connectionstring%`
+call %file% dropdatabase %connectionstring%
+
+```
 
