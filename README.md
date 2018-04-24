@@ -23,10 +23,18 @@
 
 Соответственно, приложение работает только в ОС семейства Windows.
 
+## Установка 
+
+Установка через пакетный менеджер opm, командой:
+
+``` cmd
+opm install tmssql
+```
+
 
 ## Работа в режиме приложения
 
-Исполняемый файл: TMSSQL.bat
+Исполняемый файл: C:\Program Files (x86)\OneScript\bin\TMSSQL.bat
 
 Команды:
 
@@ -47,7 +55,6 @@
 
 setlocal
 
-set file="%~dp0..\TMSSQL.bat"
 set server="10.1.1.40"
 set uid="sa"
 set pwd="pass"
@@ -57,17 +64,17 @@ set connectionstring=-server %server% -uid %uid% -pwd %pwd% -database %database%
 rem Вывод справки
 echo ----------------------------------------------
 echo help:
-call %file% help
+call TMSSQL help
 
 rem Создание базы данных 
 echo ----------------------------------------------
 echo createdatabase:
-call %file% createdatabase %connectionstring%
+call TMSSQL createdatabase %connectionstring%
 
 rem Изменение модели восстановления
 echo ----------------------------------------------
 echo setrecovery:
-call %file% setrecovery FULL %connectionstring%
+call TMSSQL setrecovery FULL %connectionstring%
 
 rem Создание резервных копий
 echo ----------------------------------------------
@@ -75,39 +82,39 @@ echo backupdatabase:
 set file_FULL=%database%_FILE_FULL.bak
 set file_DIFF=%database%_FILE_DIFF.bak
 set file_LOG=%database%_FILE_LOG.trn
-call %file% backupdatabase "" %file_FULL% FULL %connectionstring%
+call TMSSQL backupdatabase "" %file_FULL% FULL %connectionstring%
 TIMEOUT 1 /NOBREAK
-call %file% backupdatabase "" %file_DIFF% DIFFERENTIAL %connectionstring%
+call TMSSQL backupdatabase "" %file_DIFF% DIFFERENTIAL %connectionstring%
 TIMEOUT 1 /NOBREAK
-call %file% backupdatabase "" %file_LOG% LOG %connectionstring%
+call TMSSQL backupdatabase "" %file_LOG% LOG %connectionstring%
 TIMEOUT 1 /NOBREAK
 
 rem Восстановление базы данных
 echo ----------------------------------------------
 echo restoredatabase:
-call %file% restoredatabase %connectionstring%
+call TMSSQL restoredatabase %connectionstring%
 
 rem Удаление файлов на сервере
 echo ----------------------------------------------
 echo deletefile:
-call %file% deletefile %file_FULL% %connectionstring%
-call %file% deletefile %file_DIFF% %connectionstring%
-call %file% deletefile %file_LOG% %connectionstring%
+call TMSSQL deletefile %file_FULL% %connectionstring%
+call TMSSQL deletefile %file_DIFF% %connectionstring%
+call TMSSQL deletefile %file_LOG% %connectionstring%
 
 rem Сжатие файлов базы данных
 echo ----------------------------------------------
 echo shrinkfile:
-call %file% shrinkfile LOG %connectionstring%
+call TMSSQL shrinkfile LOG %connectionstring%
 
 rem Сжатие базы данных
 echo ----------------------------------------------
 echo shrinkdatabase:
-call %file% shrinkdatabase %connectionstring%
+call TMSSQL shrinkdatabase %connectionstring%
 
 rem Удаление базы данных
 echo ----------------------------------------------
 echo dropdatabase:
-call %file% dropdatabase %connectionstring%
+call TMSSQL dropdatabase %connectionstring%
 
 ```
 
@@ -118,7 +125,7 @@ call %file% dropdatabase %connectionstring%
 
 Подключение библиотеки:
 ``` bsl
-#Использовать "..\TMSSQL"
+#Использовать TMSSQL
 ```
 
 Создание класса:
@@ -155,9 +162,8 @@ call %file% dropdatabase %connectionstring%
 
 Пример использования (os-файл):
 ``` bsl
-// При подключении библиотеки необходиомо указать путь к каталогу TMSSQL с библиотекой TMSSQL.
-// Путь указывается относительно расположения данного файла.
-#Использовать "..\TMSSQL" 
+// Подключение библиотеки
+#Использовать TMSSQL 
 
 // Создадим объект	
 УправлениеMSSQL = Новый УправлениеMSSQL();
