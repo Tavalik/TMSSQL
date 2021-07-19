@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<opm-metadata xmlns="http://oscript.io/schemas/opm-metadata/1.0">
+    <name>TMSSQL</name>
+    <version>2018.04.06</version>
+    <author>Onyanov Vitaliy</author>
+    <author-email>tavalik@mail.ru</author-email>
+    <description>Приложение для работы с базами данных на MS SQL Server</description>
+    <engine-version>1.0.20</engine-version>
+    <executable>TMSSQL.os</executable>
+</opm-metadata>
